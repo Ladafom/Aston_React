@@ -7,8 +7,9 @@ class Form extends React.Component {
     super(props);
     this.state = {
       value: '',
-      submitted: false
+      submitted: false,
     };
+    this.inputRef = React.createRef();
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -20,7 +21,8 @@ class Form extends React.Component {
 
   componentDidUpdate(prevProps, prevState) {
     if (prevState.value !== this.state.value ||
-        prevState.submitted !== this.state.submitted ) {
+        prevState.submitted !== this.state.submitted ||
+        prevState.focused !== this.state.focused) {
       console.log('componentDidUpdate invoked');
     }
   }
@@ -33,7 +35,7 @@ class Form extends React.Component {
     this.setState({
       ...this.state,
       value: event.target.value,
-      submitted: false
+      submitted: false,
     });
   }
 
@@ -52,9 +54,25 @@ class Form extends React.Component {
           <label>
             Enter something here:
           </label>
-          <input type="text" value={this.state.value} onChange={this.handleChange} />
-          <input type="submit" value="Submit" />
+          <input
+            type="text"
+            value={this.state.value}
+            onChange={this.handleChange}
+            autoFocus={this.state.focused}
+            ref={this.inputRef}
+          />
+          <input
+            type="submit"
+            value="Submit"
+            disabled={ this.state.value.toLowerCase() === 'реакт'}
+          />
         </form>
+
+        <button
+          onClick={()=>{this.inputRef.current.focus()}}
+        >
+          Focus
+        </button>
 
         {
           this.state.submitted &&

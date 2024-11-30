@@ -1,4 +1,5 @@
 import React from 'react';
+import './style.css'
 
 class EnteredFormData extends React.Component {
   constructor(props) {
@@ -8,7 +9,7 @@ class EnteredFormData extends React.Component {
   render() {
 
     return (
-      <div>
+      <div className='enteredFormData'>
         <h2>
           Entered form data:
         </h2>
